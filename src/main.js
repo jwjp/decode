@@ -16,7 +16,7 @@ const app = document.querySelector('#app');
 app.innerHTML = `
   <div class="shell">
     <header class="topbar">
-      <a class="brand" href="/" aria-label="decode 홈"><span class="brand-mark">d<span>.</span></span><span>decode</span></a>
+      <a class="brand" href="./" aria-label="decode 홈"><span class="brand-mark">d<span>.</span></span><span>decode</span></a>
       <span class="top-note"><span class="status-dot"></span> 브라우저에서 바로 처리</span>
     </header>
 
