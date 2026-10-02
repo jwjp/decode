@@ -99,19 +99,27 @@ export function decodeJsonString(input) {
 
 export function decodeJwt(input) {
   const parts = input.trim().split('.');
-  if (parts.length !== 3 || !parts[0] || !parts[1]) {
-    throw new Error('JWT는 header.payload.signature 형식이어야 합니다.');
+  if (![2, 3].includes(parts.length) || !parts[0] || !parts[1]) {
+    throw new Error('점으로 구분된 2부분 또는 3부분 토큰을 입력하세요.');
   }
 
   try {
-    const header = JSON.parse(decodeBase64(parts[0]));
-    const payload = JSON.parse(decodeBase64(parts[1]));
-    if (header === null || typeof header !== 'object' || payload === null || typeof payload !== 'object') {
+    const first = JSON.parse(decodeBase64(parts[0]));
+    if (first === null || typeof first !== 'object' || Array.isArray(first)) {
       throw new Error();
     }
-    return `${JSON.stringify(header, null, 2)}\n\n${JSON.stringify(payload, null, 2)}`;
+
+    if (parts.length === 2) {
+      return JSON.stringify(first, null, 2);
+    }
+
+    const payload = JSON.parse(decodeBase64(parts[1]));
+    if (payload === null || typeof payload !== 'object' || Array.isArray(payload)) {
+      throw new Error();
+    }
+    return `${JSON.stringify(first, null, 2)}\n\n${JSON.stringify(payload, null, 2)}`;
   } catch {
-    throw new Error('JWT의 header 또는 payload를 읽을 수 없습니다.');
+    throw new Error('토큰의 JSON 부분을 읽을 수 없습니다.');
   }
 }
 

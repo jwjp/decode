@@ -9,7 +9,7 @@ const formats = [
   { id: 'hex', name: 'Hex', code: '0x', description: '16진수 바이트를 UTF-8 텍스트로 변환합니다.', sample: 'ED 95 9C EA B8 80', placeholder: '48 65 6C 6C 6F' },
   { id: 'binary', name: 'Binary', code: '01', description: '8비트 이진수 바이트를 UTF-8 텍스트로 변환합니다.', sample: '01001000 01100101 01101100 01101100 01101111', placeholder: '01001000 01101001' },
   { id: 'json', name: 'JSON 문자열', code: '{}', description: 'JSON 문자열의 이스케이프를 해석합니다.', sample: '"Hello\\n\\uC548\\uB155"', placeholder: '"Hello\\nworld"' },
-  { id: 'jwt', name: 'JWT', code: 'JWT', description: 'Header와 Payload를 읽기 쉽게 펼칩니다.', sample: 'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkphbmUgRG9lIn0.', placeholder: 'eyJhbGciOi...eyJ9.signature' },
+  { id: 'jwt', name: 'JWT / 토큰', code: 'JWT', description: '3부분 JWT의 Header와 Payload, 또는 2부분 토큰의 첫 JSON을 표시합니다.', sample: 'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkphbmUgRG9lIn0.', placeholder: 'header.payload.signature 또는 payload.signature' },
 ];
 
 const app = document.querySelector('#app');

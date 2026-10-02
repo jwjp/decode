@@ -15,7 +15,7 @@
 | Hex | `ED 95 9C` | 16진수 바이트를 UTF-8로 변환 |
 | Binary | `11101101 10010101 10011100` | 8비트 바이트를 UTF-8로 변환 |
 | JSON 문자열 | `"Hello\nworld"` | JSON 문자열 이스케이프 |
-| JWT | `header.payload.signature` | Header와 Payload 표시. 서명 검증은 하지 않음 |
+| JWT / 토큰 | `header.payload.signature`, `payload.signature` | 3부분 JWT는 Header와 Payload, 2부분 토큰은 첫 JSON 표시. 서명 검증은 하지 않음 |
 
 ## 로컬 실행
 

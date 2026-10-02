@@ -32,5 +32,7 @@ test('JSON 문자열과 JWT 디코딩', () => {
   assert.throws(() => decodeJsonString('{"a":1}'), /JSON 문자열/);
   const token = 'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkphbmUgRG9lIn0.';
   assert.match(decodeJwt(token), /"name": "Jane Doe"/);
-  assert.throws(() => decodeJwt('bad-token'), /JWT/);
+  assert.deepEqual(JSON.parse(decodeJwt('eyJmb28iOiJiYXIifQ.c2lnbmF0dXJl')), { foo: 'bar' });
+  assert.throws(() => decodeJwt('bad.token'), /JSON 부분/);
+  assert.throws(() => decodeJwt('one'), /2부분 또는 3부분/);
 });
