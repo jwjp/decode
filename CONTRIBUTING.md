@@ -1,8 +1,8 @@
-# 기여 안내
+# Contributing
 
-기여해 주셔서 감사합니다. 버그나 기능 제안은 GitHub Issue에 재현 방법과 기대한 결과를 적어 주세요.
+Thanks for your interest in contributing. For bugs or feature ideas, open a GitHub Issue with steps to reproduce the problem and the expected result.
 
-코드를 수정하려면 저장소를 fork한 뒤 별도 브랜치에서 작업하고 Pull Request를 보내 주세요.
+To contribute code, fork the repository, work on a separate branch, and open a pull request.
 
 ```bash
 npm install
@@ -10,6 +10,6 @@ npm test
 npm run build
 ```
 
-새 디코더는 `src/decoders.js`에 순수 함수로 추가하고, `src/main.js`의 형식 목록에 설명과 예시를 추가해 주세요. 정상 입력과 잘못된 입력을 확인하는 테스트도 함께 추가해 주세요. 사용자에게 보이는 오류 메시지는 이해하기 쉬운 문장으로 작성해 주세요.
+Add new decoders as pure functions in `src/decoders.js`, then add their names, descriptions, and examples for both languages in `src/main.js`. Include tests for valid and invalid input. Decoder functions should throw errors with stable codes; map each code to English and Korean messages in the UI.
 
-이 프로젝트의 모든 디코딩은 브라우저 안에서 이루어집니다. 외부 서비스로 입력 텍스트를 전송하는 변경은 먼저 Issue에서 논의해 주세요.
+All decoding happens in the browser. Please discuss any change that would send input text to an external service in an Issue first.

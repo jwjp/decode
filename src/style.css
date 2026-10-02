@@ -12,6 +12,11 @@ button:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid #a
 .brand-mark{width:33px;height:33px;display:grid;place-items:center;background:#b8ec57;color:#101621;border-radius:9px;font-size:21px;letter-spacing:-.1em;padding-right:3px}
 .brand-mark span{color:#577722}
 .top-note{display:flex;align-items:center;gap:9px;color:#8492a3;font-size:12px;font-weight:600;letter-spacing:.01em}
+.top-actions{display:flex;align-items:center;gap:22px}
+.language-switch{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid #364557;border-radius:8px;background:#17212e}
+.language-switch button{min-width:38px;padding:6px 9px;border:0;border-radius:5px;background:transparent;color:#8192a3;font-size:11px;font-weight:700;white-space:nowrap}
+.language-switch button:hover{color:#e9eef4}
+.language-switch button[aria-pressed=true]{background:#b8ec57;color:#17211b}
 .status-dot,.small-dot{width:7px;height:7px;display:inline-block;flex:none;border-radius:50%;background:#b8ec57;box-shadow:0 0 0 4px #b8ec5719}
 .intro{padding:76px 0 72px}
 .eyebrow,.section-kicker,.format-count,.keyboard-hint,.panel-index{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.13em}
@@ -66,4 +71,4 @@ textarea::placeholder,.output.empty{color:#607285}
 footer{display:flex;justify-content:space-between;gap:20px;padding:32px 0 42px;color:#607082;font-size:11px}
 .footer-spark{color:#b8ec57;margin:0 3px}
 @media(max-width:800px){.shell{padding:0 24px}.topbar{height:72px}.intro{padding:62px 0}.workspace{padding:24px}.format-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.editor-grid{display:flex;flex-direction:column;gap:12px}.editor-panel{width:100%;height:260px;flex:none}.arrow{transform:rotate(90deg)}.editor-heading{margin-top:39px}}
-@media(max-width:480px){.shell{padding:0 16px}.intro{padding:52px 0}.intro p{font-size:13px}.workspace{padding:20px 15px}.top-note{font-size:10px}.format-card{height:76px;padding:12px}.format-name{font-size:13px}.format-count,.keyboard-hint{font-size:9px}.editor-panel{height:245px}.panel-top,.panel-bottom{padding-left:14px;padding-right:14px}textarea,.output{padding:15px;font-size:12px}footer{flex-direction:column;gap:7px}}
+@media(max-width:480px){.shell{padding:0 16px}.intro{padding:52px 0}.intro p{font-size:13px}.workspace{padding:20px 15px}.top-note{display:none}.language-switch button{padding:6px 7px}.format-card{height:76px;padding:12px}.format-name{font-size:13px}.format-count,.keyboard-hint{font-size:9px}.editor-panel{height:245px}.panel-top,.panel-bottom{padding-left:14px;padding-right:14px}textarea,.output{padding:15px;font-size:12px}footer{flex-direction:column;gap:7px}}

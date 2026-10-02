@@ -1,24 +1,28 @@
 const utf8Decoder = new TextDecoder('utf-8', { fatal: true });
 
+function decodeError(code) {
+  return Object.assign(new Error(code), { code });
+}
+
 function decodeUtf8(bytes) {
   try {
     return utf8Decoder.decode(bytes);
   } catch {
-    throw new Error('유효한 UTF-8 텍스트가 아닙니다.');
+    throw decodeError('invalidUtf8');
   }
 }
 
 function decodeBase64Bytes(input) {
   const normalized = input.replace(/\s/g, '').replace(/-/g, '+').replace(/_/g, '/');
   if (!normalized || !/^[A-Za-z0-9+/]*={0,2}$/.test(normalized) || normalized.length % 4 === 1) {
-    throw new Error('올바른 Base64 형식이 아닙니다.');
+    throw decodeError('invalidBase64');
   }
 
   try {
     const binary = atob(normalized);
     return Uint8Array.from(binary, (character) => character.charCodeAt(0));
   } catch {
-    throw new Error('올바른 Base64 형식이 아닙니다.');
+    throw decodeError('invalidBase64');
   }
 }
 
@@ -26,21 +30,21 @@ export function decodeUrl(input) {
   try {
     return decodeURIComponent(input.replace(/\+/g, ' '));
   } catch {
-    throw new Error('잘못된 URL 인코딩입니다. % 뒤의 16진수 값을 확인하세요.');
+    throw decodeError('invalidUrl');
   }
 }
 
 export function decodeUnicode(input) {
   const invalidEscape = /\\(?:u(?![0-9a-fA-F]{4}|\{[0-9a-fA-F]{1,6}\})|x(?![0-9a-fA-F]{2}))/;
   if (invalidEscape.test(input)) {
-    throw new Error('Unicode 이스케이프 형식을 확인하세요. 예: \\uD55C 또는 \\u{1F600}');
+    throw decodeError('invalidUnicodeEscape');
   }
 
   const decoded = input
     .replace(/\\u\{([0-9a-fA-F]{1,6})\}/g, (_, hex) => {
       const codePoint = Number.parseInt(hex, 16);
       if (codePoint > 0x10ffff || (codePoint >= 0xd800 && codePoint <= 0xdfff)) {
-        throw new Error('유효하지 않은 Unicode 코드 포인트입니다.');
+        throw decodeError('invalidCodePoint');
       }
       return String.fromCodePoint(codePoint);
     })
@@ -56,10 +60,10 @@ export function decodeUnicode(input) {
     if (unit >= 0xd800 && unit <= 0xdbff) {
       const next = decoded.charCodeAt(++index);
       if (!(next >= 0xdc00 && next <= 0xdfff)) {
-        throw new Error('짝이 맞지 않는 Unicode 서로게이트입니다.');
+        throw decodeError('unpairedSurrogate');
       }
     } else if (unit >= 0xdc00 && unit <= 0xdfff) {
-      throw new Error('짝이 맞지 않는 Unicode 서로게이트입니다.');
+      throw decodeError('unpairedSurrogate');
     }
   }
   return decoded;
@@ -72,7 +76,7 @@ export function decodeBase64(input) {
 export function decodeHex(input) {
   const compact = input.trim().replace(/(?:0x|\\x)/gi, '').replace(/[\s,;:-]/g, '');
   if (!compact || compact.length % 2 !== 0 || /[^0-9a-f]/i.test(compact)) {
-    throw new Error('16진수는 두 자리씩 입력하세요. 예: ED 95 9C');
+    throw decodeError('invalidHex');
   }
   const bytes = Uint8Array.from(compact.match(/.{2}/g), (hex) => Number.parseInt(hex, 16));
   return decodeUtf8(bytes);
@@ -81,7 +85,7 @@ export function decodeHex(input) {
 export function decodeBinary(input) {
   const compact = input.replace(/\s/g, '');
   if (!compact || compact.length % 8 !== 0 || /[^01]/.test(compact)) {
-    throw new Error('2진수는 8비트씩 입력하세요. 예: 01001000 01101001');
+    throw decodeError('invalidBinary');
   }
   const bytes = Uint8Array.from(compact.match(/.{8}/g), (bits) => Number.parseInt(bits, 2));
   return decodeUtf8(bytes);
@@ -93,14 +97,14 @@ export function decodeJsonString(input) {
     if (typeof value !== 'string') throw new Error();
     return value;
   } catch {
-    throw new Error('따옴표를 포함한 올바른 JSON 문자열을 입력하세요. 예: "Hello\\nworld"');
+    throw decodeError('invalidJsonString');
   }
 }
 
 export function decodeJwt(input) {
   const parts = input.trim().split('.');
   if (![2, 3].includes(parts.length) || !parts[0] || !parts[1]) {
-    throw new Error('점으로 구분된 2부분 또는 3부분 토큰을 입력하세요.');
+    throw decodeError('invalidTokenParts');
   }
 
   try {
@@ -119,7 +123,7 @@ export function decodeJwt(input) {
     }
     return `${JSON.stringify(first, null, 2)}\n\n${JSON.stringify(payload, null, 2)}`;
   } catch {
-    throw new Error('토큰의 JSON 부분을 읽을 수 없습니다.');
+    throw decodeError('invalidTokenJson');
   }
 }
 
