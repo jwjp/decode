@@ -1,6 +1,6 @@
 # decode
 
-브라우저에서 인코딩된 텍스트를 바로 읽을 수 있는 오픈소스 디코더입니다. 입력한 텍스트는 서버로 전송하지 않고 브라우저 안에서 처리합니다.
+브라우저에서 텍스트를 인코딩하거나 디코딩할 수 있는 오픈소스 도구입니다. 입력한 텍스트는 서버로 전송하지 않고 브라우저 안에서 처리합니다.
 
 **바로 사용하기:** https://jwjp.github.io/decode/
 
@@ -8,16 +8,18 @@
 
 ## 지원 형식
 
-| 형식 | 예시 | 설명 |
+| 형식 | 디코딩 예시 | 인코딩 지원 |
 | --- | --- | --- |
-| URL | `%ED%95%9C+%EA%B8%80` | 퍼센트 인코딩과 `+` 공백 변환 |
-| Unicode | `\uD55C\uAE00` | `\uXXXX`, `\u{...}`, `\xXX` |
-| Base64 | `7ZWc6riA` | Base64 및 Base64URL, UTF-8 텍스트 |
-| HTML 엔티티 | `&lt;div&gt;` | 이름과 숫자 엔티티 |
-| Hex | `48 65 6C 6C 6F` | 16진수 바이트를 UTF-8로 변환 |
-| Binary | `01001000 01101001` | 8비트 바이트를 UTF-8로 변환 |
-| JSON 문자열 | `"Hello\nworld"` | JSON 문자열 이스케이프 |
-| JWT / 토큰 | `header.payload.signature`, `payload.signature` | 3부분 JWT는 Header와 Payload, 2부분 토큰은 첫 JSON 표시. 서명은 검증하지 않음. |
+| URL | `%ED%95%9C+%EA%B8%80` | 퍼센트 인코딩, 공백은 `+`로 표시 |
+| Unicode | `\uD55C\uAE00` | 비 ASCII 문자, 제어 문자, 역슬래시를 이스케이프 |
+| Base64 | `7ZWc6riA` | UTF-8 텍스트를 Base64로 변환 |
+| HTML 엔티티 | `&lt;div&gt;` | `&`, `<`, `>`, 따옴표, 작은따옴표 이스케이프 |
+| Hex | `48 65 6C 6C 6F` | UTF-8 바이트를 16진수로 변환 |
+| Binary | `01001000 01101001` | UTF-8 바이트를 8비트 이진수로 변환 |
+| JSON 문자열 | `"Hello\nworld"` | 텍스트를 JSON 문자열로 이스케이프 |
+| JWT / 토큰 | `header.payload.signature`, `payload.signature` | 디코딩 전용. 3부분 JWT는 Header와 Payload, 2부분 토큰은 첫 JSON 표시. 서명은 검증하지 않음. |
+
+**Decode / Encode** 스위치로 변환 방향을 선택할 수 있습니다. JWT 인코딩은 사용 가능한 토큰을 만들려면 서명이 필요하므로 제공하지 않습니다.
 
 ## 로컬 실행
 

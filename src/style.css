@@ -26,6 +26,10 @@ h1{margin:0;font-size:clamp(36px,5vw,67px);line-height:1.22;letter-spacing:-.075
 h1 em{font-style:normal;color:#b8ec57}
 .intro p{margin:24px 0 0;color:#95a3b2;font-size:15px;letter-spacing:-.02em;line-height:1.7}
 .workspace{border:1px solid #303d4d;border-radius:16px;padding:34px;background:#151d29;box-shadow:0 24px 60px #060a1033}
+.mode-switch{display:inline-flex;gap:4px;padding:4px;margin-bottom:32px;border:1px solid #364557;border-radius:10px;background:#101821}
+.mode-switch button{min-width:100px;padding:10px 18px;border:0;border-radius:7px;background:transparent;color:#8799a8;font-size:13px;font-weight:700}
+.mode-switch button:hover{color:#e9eef4}
+.mode-switch button[aria-pressed=true]{background:#b8ec57;color:#17211b}
 .workspace-heading,.editor-heading{display:flex;align-items:end;justify-content:space-between}
 .section-kicker{color:#b8ec57}
 h2{font-size:20px;line-height:1;margin:10px 0 0;letter-spacing:-.04em}

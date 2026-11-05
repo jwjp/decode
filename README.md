@@ -1,6 +1,6 @@
 # decode
 
-An open-source decoder that turns encoded text into readable text in your browser. Your input is processed locally and is not sent to a server.
+An open-source text encoder and decoder that runs in your browser. Your input is processed locally and is not sent to a server.
 
 **Try it:** https://jwjp.github.io/decode/
 
@@ -8,16 +8,18 @@ English is the default language. Use the **EN / 한국어** switch to change lan
 
 ## Supported formats
 
-| Format | Example | What it does |
+| Format | Decode example | Encode support |
 | --- | --- | --- |
-| URL | `%ED%95%9C+%EA%B8%80` | Percent decoding; `+` becomes a space |
-| Unicode | `\uD55C\uAE00` | `\uXXXX`, `\u{...}`, and `\xXX` escapes |
-| Base64 | `7ZWc6riA` | Base64 and Base64URL as UTF-8 text |
-| HTML entities | `&lt;div&gt;` | Named and numeric entities |
-| Hex | `48 65 6C 6C 6F` | Hexadecimal bytes as UTF-8 text |
-| Binary | `01001000 01101001` | 8-bit bytes as UTF-8 text |
-| JSON string | `"Hello\nworld"` | Escapes in a quoted JSON string |
-| JWT / token | `header.payload.signature`, `payload.signature` | Shows the header and payload of a 3-part JWT, or the first JSON object of a 2-part token. Does not verify signatures. |
+| URL | `%ED%95%9C+%EA%B8%80` | Percent encoding; spaces become `+` |
+| Unicode | `\uD55C\uAE00` | Escapes non-ASCII characters, controls, and backslashes |
+| Base64 | `7ZWc6riA` | Encodes UTF-8 text as Base64 |
+| HTML entities | `&lt;div&gt;` | Escapes `&`, `<`, `>`, quotes, and apostrophes |
+| Hex | `48 65 6C 6C 6F` | Encodes UTF-8 bytes as hexadecimal pairs |
+| Binary | `01001000 01101001` | Encodes UTF-8 bytes as 8-bit groups |
+| JSON string | `"Hello\nworld"` | Quotes and escapes text as a JSON string |
+| JWT / token | `header.payload.signature`, `payload.signature` | Decode only. Shows the header and payload of a 3-part JWT, or the first JSON object of a 2-part token. Does not verify signatures. |
+
+Use the **Decode / Encode** switch to choose a direction. JWT is available only in Decode because encoding a usable JWT requires signing.
 
 ## Run locally
 
